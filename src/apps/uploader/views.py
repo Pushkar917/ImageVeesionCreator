@@ -4,7 +4,7 @@ from apps.uploader.models import OriginalImage
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from apps.uploader.serializers import ImageCreateSerializer
+from apps.uploader.serializers import ImageCreateSerializer, ImageSerializer
 
 '''def request_image(request):
     if request.method == "POST":
@@ -31,4 +31,9 @@ class ImageBasedAPIView(APIView):
         else:
             return Response(imgSerializerClass.error, status=status.HTTP_400_BAD_REQUEST)
         
+    def get(self, request):
+        images = OriginalImage.objects.all()
+        serializer_class = ImageSerializer(images, many=True)
+        return Response(serializer_class.data, status=status.HTTP_200_OK)
+   
 
