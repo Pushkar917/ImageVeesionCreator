@@ -1,0 +1,13 @@
+.navigation-bar{
+    background-color: #354955;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.nav-link   {
+color: #fff;
+width: fit-content;
+}

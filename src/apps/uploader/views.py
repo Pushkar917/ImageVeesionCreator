@@ -6,19 +6,27 @@ from rest_framework.response import Response
 from rest_framework import status
 from apps.uploader.serializers import ImageCreateSerializer, ImageSerializer
 
-'''def request_image(request):
+def request_image(request):
     if request.method == "POST":
         form = ImageUploadForms(request.POST, request.FILES)
         if form.is_valid():
             image_object = form.instance
-            image_object = form.instance  
-              
-            return render(request, 'imageForm.html', {'form': form, 'img_obj': image_object})
+            image_data=OriginalImage.objects.create(title=image_object.title, image= image_object.image)
+            image_data.save()
+            processed_images = OriginalImage.objects.get(pk=image_data.pk) 
+            return render(request,"success.html", context={"processed_images": processed_images})
 
-        else:  
-            form = ImageUploadForms()  
+    else:  
+        form = ImageUploadForms()  
   
-    return render(request, 'imageForm.html', {'form': form})'''
+    return render(request, 'imageForm.html', {'form': form})
+
+
+class UserBasedImageView(APIView):
+    def get(self, request, title):
+        # authorization code
+        processed_images = OriginalImage.objects.get(title=title) 
+        return render(request,"success.html", context={"processed_images": processed_images})
 
 
 class ImageBasedAPIView(APIView):

@@ -18,9 +18,10 @@ logger = logging.getLogger("__name__")
 def create_oriimage_portfolio(sender, instance, created,**kwargs):
     if created:
         img_io = BytesIO()
+        size = 300, 400
         original_image = Image.open(instance.image.path)
-        cropped_img = original_image.crop((0, 0, 1500, 1100))
-        cropped_img.save(img_io, format='JPEG', quality=100)
+        original_image.thumbnail(size, Image.Resampling.LANCZOS)
+        original_image.save(img_io, format='JPEG')
         img_content = ContentFile(img_io.getvalue(), 'portfolio_'+ instance.title + '.jpg')
         PortFolioImageVesions.objects.create(portfolio_field=img_content,original_image=instance)
 
@@ -34,17 +35,14 @@ def save_image_portfolio(sender, instance, **kwargs):
 
 
 
-
-
-
-
 @receiver(post_save, sender=OriginalImage)
 def create_origimages_landscape(sender, instance, created,**kwargs):
     if created:
         img_io = BytesIO()
+        size = 1600, 900
         original_image = Image.open(instance.image.path)
-        cropped_img = original_image.crop((0, 0, 800, 1500))
-        cropped_img.save(img_io, format='JPEG', quality=100)
+        original_image.thumbnail(size, Image.Resampling.LANCZOS)
+        original_image.save(img_io, format='JPEG')
         img_content = ContentFile(img_io.getvalue(), 'landscape_'+ instance.title + '.jpg')
         LandscapeImageVesions.objects.create(landscape_field=img_content,original_image=instance)
 
@@ -62,9 +60,10 @@ def save_image_landscape(sender, instance, **kwargs):
 def create_origimages_logo(sender, instance, created,**kwargs):
     if created:
         img_io = BytesIO()
+        size = 100, 100
         original_image = Image.open(instance.image.path)
-        cropped_img = original_image.crop((0, 0, 500, 500))
-        cropped_img.save(img_io, format='JPEG', quality=100)
+        original_image.thumbnail(size, Image.Resampling.LANCZOS)
+        original_image.save(img_io, format='JPEG')
         img_content = ContentFile(img_io.getvalue(), 'logo_'+ instance.title + '.jpg')
         LogoImageVersions.objects.create(logo_field=img_content,original_image=instance)
 
