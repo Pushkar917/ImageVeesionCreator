@@ -1,0 +1,18 @@
+docker build --tag python-django .
+docker run --publish 8000:8000 python-django
+
+
+Part2:
+docker-compose up -d
+
+Part3:
+
+docker-compose build
+docker compose run --rm app
+docker-compose up -d
+docker exec -it django_container /bin/bash
+docker exec -it postgres_db /bin/sh
+psql -U postgres -h localhost -p 5432 -d postgres
+
+CREATE USER pushkar WITH PASSWORD 'postgres';
+

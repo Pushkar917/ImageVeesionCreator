@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/pushkar/interviewDjango/venv"
+VIRTUAL_ENV="/home/pushkar/interviewDjango/ImageVersionCreator/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

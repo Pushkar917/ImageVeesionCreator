@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+
+
+<header class="hero-one">   
+    Gallery
+</header>
+
+
+
+<div class="gallery-grid">
+    {% for image in image_data %}
+    <div class="gallery-item">
+        
+        <img src="{{ image.image.url }}" alt="{{ image.title }}">
+        
+        <div class="overlay">
+            <div class="overlay-content">
+            
+            <h3>{{image.title}}</h3>
+            <a href="{% url 'single_image_page' image.title %}" class="my-link"><button class="button">View More</button> </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="hero">   
+    IMAGE UPLOADER
+  </header>
+<div class="home--container">  
+        <br>
+    <div class="form--container">
+        <form class="home--form" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                   <label for="alltheformfield" class="form-label">{{field.label}}</label><br>  
+                   {{field}}
+                </div>
+            {% endfor %}
+            <input class="btn btn-dark"type="submit" value="Log in">
+    
+        </form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

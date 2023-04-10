@@ -5,7 +5,7 @@ from apps.users.models import User
 
 
 
-class CustomUserAdmin(UserAdmin):
+'''class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = User
@@ -24,7 +24,7 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
     search_fields = ("username",)
-    ordering = ("username",)
+    ordering = ("username",)'''
 
 
-admin.site.register(User, CustomUserAdmin)
+admin.site.register(User)

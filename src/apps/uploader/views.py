@@ -22,6 +22,17 @@ def request_image(request):
     return render(request, 'imageForm.html', {'form': form})
 
 
+
+
+
+
+def single_image_page(request, title):
+    processed_images = OriginalImage.objects.get(title=title)
+    if processed_images: 
+        return render(request,"success.html", context={"processed_images": processed_images})
+
+
+
 class UserBasedImageView(APIView):
     def get(self, request, title):
         # authorization code

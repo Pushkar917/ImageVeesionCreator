@@ -19,9 +19,13 @@ def create_oriimage_portfolio(sender, instance, created,**kwargs):
     if created:
         img_io = BytesIO()
         size = 300, 400
-        original_image = Image.open(instance.image.path)
+        original_image = Image.open(instance.image.path).convert('RGB')
         original_image.thumbnail(size, Image.Resampling.LANCZOS)
-        original_image.save(img_io, format='JPEG')
+        if original_image.mode in ["RGBA", "P"]:
+            original_image.convert("RGB")
+            original_image.save(img_io, format='JPEG')
+        else:
+            original_image.save(img_io, format='JPEG')
         img_content = ContentFile(img_io.getvalue(), 'portfolio_'+ instance.title + '.jpg')
         PortFolioImageVesions.objects.create(portfolio_field=img_content,original_image=instance)
 
